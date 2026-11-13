@@ -1,0 +1,17 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y bison flex autoconf automake libtool gcc g++ make
+      - name: Build MATIEC (IEC 61131-3 compiler)
+        run: |
+          git clone --depth 1 https://github.com/beremiz/matiec.git "$RUNNER_TEMP/matiec"
+          cd "$RUNNER_TEMP/matiec" && autoreconf -i && ./configure && make -j"$(nproc)"
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pytest matplotlib
+      - run: make MATIEC="$RUNNER_TEMP/matiec" test
