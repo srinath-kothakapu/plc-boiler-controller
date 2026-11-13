@@ -13,5 +13,5 @@ jobs:
           cd "$RUNNER_TEMP/matiec" && autoreconf -i && ./configure && make -j"$(nproc)"
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - run: pip install pytest matplotlib
+      - run: pip install pytest
       - run: make MATIEC="$RUNNER_TEMP/matiec" test

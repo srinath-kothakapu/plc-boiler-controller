@@ -51,7 +51,7 @@ make MATIEC=/path/to/matiec plots     # regenerates docs/*.svg
 4. Call it from `PLC_PRG` / a 100 ms task, build, log in, and force the inputs
    (`TempC`, `PumpRunning`, `EStopOK`, `StartCmd`, ...) to step through the sequence.
 
-## Limits (be honest in interviews)
+## Limits
 
 - This is a **control and alarm logic model**, not a safety function. Real boiler safety limiters
   (STB, approved hardware, EN 12952/12953) are independent of the PLC.
